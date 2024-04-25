@@ -5,6 +5,11 @@ const reducer = (state, action) => {
         ...state,
         cart: [],
       };
+    case "REMOVE":
+      return {
+        ...state,
+        cart: state.cart.filter((cartItem) => cartItem.id !== action.payload),
+      };
     default:
       throw new Error("Unkown action type");
   }

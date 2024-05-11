@@ -66,6 +66,24 @@ const reducer = (state, action) => {
         total,
         amount,
       };
+    case "TOGGLE_AMOUNT":
+      let tempCart3 = state.cart
+        .map((cartItem) => {
+          if (cartItem.id === action.payload.id) {
+            if (action.payload.type === "inc") {
+              return { ...cartItem, amount: cartItem.amount++ };
+            }
+            if (action.payload.type === "dec") {
+              return { ...cartItem, amount: cartItem.amount-- };
+            }
+          }
+          return cartItem;
+        })
+        .filter((cartItem) => cartItem.amount !== 0);
+      return {
+        ...state,
+        cart: tempCart3,
+      };
     default:
       throw new Error("Unkown action type");
   }
